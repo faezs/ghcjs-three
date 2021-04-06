@@ -6,10 +6,10 @@ module GHCJS.Three.Monad (
     toJSValsHelper
 ) where
 
-import GHCJS.Types
+import Language.Javascript.JSaddle.Types
 import qualified GHCJS.Marshal as M
 
-type Three = IO
+type Three = JSM
 
 newtype BaseObject = BaseObject JSVal
 
@@ -25,5 +25,5 @@ instance ThreeJSVal BaseObject where
 c ~: v = c v
 
 -- | a helper function used in this library for building JS objects easier
-toJSValsHelper :: (M.ToJSVal v) => k -> v -> IO (k, JSVal)
+toJSValsHelper :: (M.ToJSVal v) => k -> v -> JSM (k, JSVal)
 toJSValsHelper k v = M.toJSVal v >>= return . (,) k
