@@ -90,8 +90,8 @@ class IsArray a where
     arrRead :: Int -> a -> IO JSVal
     arrRead i a = JSArr.read i (getArray a)
 
-    arrWrite :: Int -> Vector3 -> a -> IO ()
-    arrWrite i (Vector3 x y z) a = do
+    arrWrite :: Int -> V3R -> a -> IO ()
+    arrWrite i (V3 x y z) a = do
         (v :: TVector3) <- fromJSVal <$> arrRead i a
         setX x v
         setY y v
@@ -105,7 +105,7 @@ instance IsArray VerticeArray
 -- use Marshal.fromJSVal to convert JSVal -> IO (Maybe [JSVal])
 -- and Marshal.toJSVal to convert [JSVal] -> IO JSVal
 class ThreeJSVal g => IsGeometry g where
-    vertices :: g -> Three [Vector3]
+    vertices :: g -> Three [V3R]
     vertices g = do
         vs <- thr_vertices (toJSVal g)
         vl <- Marshal.fromJSVal vs
@@ -114,7 +114,7 @@ class ThreeJSVal g => IsGeometry g where
     verticesArray :: g -> Three VerticeArray
     verticesArray = fmap (VerticeArray . SomeJSArray) . thr_vertices . toJSVal
 
-    setVertices :: [Vector3] -> g -> Three ()
+    setVertices :: [V3R] -> g -> Three ()
     setVertices vs g = mapM mkTVector3 vs >>= Marshal.toJSVal . map toJSVal >>= flip thr_setVectices (toJSVal g) >> thr_setVerticesNeedUpdate 1 (toJSVal g)
 
     verticesNeedUpdate :: g -> Three ()

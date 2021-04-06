@@ -22,14 +22,14 @@ foreign import javascript unsafe "($1)['getCenter']()"
 foreign import javascript unsafe "($1)['getSize']()"
     thr_boxSize :: JSVal -> Three JSVal
 
-boxMin :: Box3 -> Three Vector3
+boxMin :: Box3 -> Three V3R
 boxMin b = thr_boxMin (toJSVal b) >>= toVector3 . fromJSVal
 
-boxMax :: Box3 -> Three Vector3
+boxMax :: Box3 -> Three V3R
 boxMax b = thr_boxMax (toJSVal b) >>= toVector3 . fromJSVal
 
-boxCenter :: Box3 -> Three Vector3
+boxCenter :: Box3 -> Three V3R
 boxCenter b = thr_boxCenter (toJSVal b) >>= toVector3 . fromJSVal
 
-boxSize :: Box3 -> Three Vector3
+boxSize :: Box3 -> Three V3R
 boxSize b = thr_boxSize (toJSVal b) >>= toVector3 . fromJSVal

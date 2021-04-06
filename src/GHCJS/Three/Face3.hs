@@ -43,7 +43,7 @@ verticeC = thr_verticeC . toJSVal
 foreign import javascript unsafe "($1)['normal']"
     thr_faceNormal :: JSVal -> Three JSVal
 
-faceNormal :: Face3 -> Three Vector3
+faceNormal :: Face3 -> Three V3R
 faceNormal f = (toVector3 . fromJSVal) =<< thr_faceNormal (toJSVal f)
 
 foreign import javascript unsafe "($1)['color']"

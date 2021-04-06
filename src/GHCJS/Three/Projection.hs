@@ -8,11 +8,11 @@ import GHCJS.Three.Monad
 import GHCJS.Three.Vector
 import GHCJS.Three.Camera
 
--- public functions for JS Vector3
+-- public functions for JS V3R
 foreign import javascript unsafe "($2)['project']($1)"
     thr_project :: JSVal -> JSVal -> Three ()
 
-project :: Camera -> Vector3 -> Three Vector3
+project :: Camera -> V3R -> Three V3R
 project c v = do
     jv <- mkTVector3 v
     thr_project (toJSVal c) (toJSVal jv)
@@ -21,7 +21,7 @@ project c v = do
 foreign import javascript unsafe "($2)['unproject']($1)"
     thr_unproject :: JSVal -> JSVal -> Three ()
 
-unproject :: Camera -> Vector3 -> Three Vector3
+unproject :: Camera -> V3R -> Three V3R
 unproject c v = do
     jv <- mkTVector3 v
     thr_unproject (toJSVal c) (toJSVal jv)

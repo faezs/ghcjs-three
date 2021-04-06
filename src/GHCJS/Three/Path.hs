@@ -16,7 +16,7 @@ newtype Path = Path {
 foreign import javascript unsafe "new window['THREE']['Path']($1)"
     thr_mkPath :: JSVal -> Three JSVal
 
-mkPath :: [Vector2] -> Three Path
+mkPath :: [V2R] -> Three Path
 mkPath points = mapM mkTVector2 points >>= Marshal.toJSVal . map toJSVal >>= fmap fromJSVal . thr_mkPath
 
 foreign import javascript unsafe "($2)['fromPoints']($1)"

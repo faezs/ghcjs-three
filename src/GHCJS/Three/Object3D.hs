@@ -168,18 +168,18 @@ class (ThreeJSVal o) => IsObject3D o where
               maybeToList (Just l) = l
 
     -- functions with default implementations
-    scale :: o -> Three Vector3
+    scale :: o -> Three V3R
     scale = (toVector3 . fromJSVal) <=< (thr_scale . toJSVal)
 
-    setScale :: Vector3 -> o -> Three ()
+    setScale :: V3R -> o -> Three ()
     setScale s o = do
         sv <- mkTVector3 s
         thr_setScale (toJSVal sv) (toJSVal o)
 
-    position :: o -> Three Vector3
+    position :: o -> Three V3R
     position = (toVector3 . fromJSVal) <=< (thr_position . toJSVal)
 
-    setPosition :: Vector3 -> o -> Three ()
+    setPosition :: V3R -> o -> Three ()
     setPosition p o = do
         pv <- mkTVector3 p
         thr_setPosition (toJSVal pv) (toJSVal o)
@@ -204,10 +204,10 @@ class (ThreeJSVal o) => IsObject3D o where
     setRotationOrig :: Euler -> o -> Three ()
     setRotationOrig r o = thr_setRotation (toJSVal r) (toJSVal o)
 
-    up :: o -> Three Vector3
+    up :: o -> Three V3R
     up = (toVector3 . fromJSVal) <=< (thr_up . toJSVal)
 
-    setUp :: Vector3 -> o -> Three ()
+    setUp :: V3R -> o -> Three ()
     setUp u o = do
         uv <- mkTVector3 u
         thr_setUp (toJSVal uv) (toJSVal o)
@@ -227,17 +227,17 @@ class (ThreeJSVal o) => IsObject3D o where
     translateOnAxis :: NormalVector -> Double -> o -> Three ()
     translateOnAxis v d o = thr_translateOnAxis (toJSVal v) d (toJSVal o)
 
-    localToWorld :: Vector3 -> o -> Three Vector3
+    localToWorld :: V3R -> o -> Three V3R
     localToWorld v o = do
         vv <- mkTVector3 v
         (toVector3 . fromJSVal) =<< thr_localToWorld (toJSVal vv) (toJSVal o)
 
-    worldToLocal :: Vector3 -> o -> Three Vector3
+    worldToLocal :: V3R -> o -> Three V3R
     worldToLocal v o = do
         vv <- mkTVector3 v
         (toVector3 . fromJSVal) =<< thr_worldToLocal (toJSVal vv) (toJSVal o)
 
-    lookAt :: Vector3 -> o -> Three ()
+    lookAt :: V3R -> o -> Three ()
     lookAt v o = do
         vv <- mkTVector3 v
         thr_lookAt (toJSVal vv) (toJSVal o)

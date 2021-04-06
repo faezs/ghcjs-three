@@ -3,6 +3,8 @@ module GHCJS.Three.Vector (
     IsJSVector(..), TVector3(..), TVector2(..), NormalVector,
     mkTVector3, toVector3, mkTVector2, toVector2, vector3To2, (#+), (#-),
     V3R, V2R
+    , module Linear.V2, module Linear.V3
+    , v3x, v3y, v3z, v2x, v2y
     ) where
 
 import Data.Functor
@@ -16,7 +18,7 @@ import GHCJS.Three.Matrix
 import GHCJS.Three.CanCopy
 
 import Linear.V2
-import Linear.V3
+import Linear.V3 hiding (cross)
 
 type V3R = V3 Double
 type V2R = V2 Double
@@ -181,3 +183,11 @@ toVector2 v = V2 <$> vecX v <*> vecY v
 -- | extract x and y fields of a 3D vector to form a new 2D vector
 vector3To2 :: V3R -> V2R
 vector3To2 (V3 x y _) = V2 x y
+
+
+v3x (V3 x _ _ ) = x
+v3y (V3 _ y _) = y
+v3z (V3 _ _ z) = z
+
+v2x (V2 x _) = x
+v2y (V2 _ y) = y

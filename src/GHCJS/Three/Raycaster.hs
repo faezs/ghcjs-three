@@ -44,7 +44,7 @@ foreign import javascript unsafe "($7)['ray']['origin']['set']($1, $2, $3);\
                                  \($7)['ray']['direction']['set']($4, $5, $6);"
     thr_setRayValue :: Double -> Double -> Double -> Double -> Double -> Double -> JSVal -> Three ()
 
-setRay :: Vector3 -> Vector3 -> Raycaster -> Three ()
+setRay :: V3R -> V3R -> Raycaster -> Three ()
 setRay orig dir c = thr_setRayValue (v3x orig) (v3y orig) (v3z orig) (v3x dir) (v3y dir) (v3z dir) (toJSVal c)
 
 foreign import javascript unsafe "($2)['near'] = $1"
@@ -62,7 +62,7 @@ setRayCasterFar f c = thr_setRayCasterFar f (toJSVal c)
 foreign import javascript unsafe "($3)['setFromCamera']($1, $2)"
     thr_setFromCamera :: JSVal -> JSVal -> JSVal -> Three ()
 
-setFromCamera :: (IsCamera c) => Vector2 -> c -> Raycaster -> Three ()
+setFromCamera :: (IsCamera c) => V2R -> c -> Raycaster -> Three ()
 setFromCamera v c r = do
     vecVal <- toJSVal <$> mkTVector2 v
     thr_setFromCamera vecVal (toJSVal c) (toJSVal r)
@@ -91,7 +91,7 @@ foreign import javascript unsafe "new window['THREE']['Raycaster']($1, $2, $3, $
 foreign import javascript unsafe "new window['THREE']['Raycaster']()"
     thr_mkBaseRaycaster :: Three JSVal
 
-mkRaycaster :: Vector3 -> Vector3 -> Near -> Far -> Three Raycaster
+mkRaycaster :: V3R -> V3R -> Near -> Far -> Three Raycaster
 mkRaycaster origin direction near far = do
     ov <- mkTVector3 origin
     dv <- mkTVector3 direction
@@ -113,7 +113,7 @@ foreign import javascript unsafe "($1)['face']"
 foreign import javascript unsafe "($1)['faceIndex']"
     thr_faceIndex :: JSVal -> Three Int
 
-getCastPoint :: RaycastResult -> Three Vector3
+getCastPoint :: RaycastResult -> Three V3R
 getCastPoint = (toVector3 . fromJSVal) <=< (thr_point . toJSVal)
 
 getCastObject :: RaycastResult -> Three Object3D
