@@ -58,7 +58,6 @@ library
                      , GHCJS.Three.TextGeometry
                      , GHCJS.Three
   build-depends:       base >= 4.7 && < 5
-                     , ghcjs-base-stub
                      , ghcjs-dom
                      , transformers
                      , linear
