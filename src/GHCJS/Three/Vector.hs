@@ -2,8 +2,7 @@
 module GHCJS.Three.Vector (
     IsJSVector(..), TVector3(..), TVector2(..), NormalVector,
     mkTVector3, toVector3, mkTVector2, toVector2, vector3To2, (#+), (#-),
-    module Linear.V2,
-    module Linear.V3
+    V3R, V2R
     ) where
 
 import Data.Functor
@@ -18,6 +17,9 @@ import GHCJS.Three.CanCopy
 
 import Linear.V2
 import Linear.V3
+
+type V3R = V3 R
+type V2R = V2 R
 
 foreign import javascript unsafe "($2)['add']($1)"
     thr_add :: JSVal -> JSVal -> Three ()
@@ -115,7 +117,7 @@ instance CanCopy TVector3
 foreign import javascript unsafe "($2)['setFromMatrixPosition']($1)"
     thr_setFromMatrixPosition :: JSVal -> JSVal -> Three ()
 
-fromMatrixPosition :: Matrix4 -> Three V3
+fromMatrixPosition :: Matrix4 -> Three V3R
 fromMatrixPosition m = do
     jv <- thr_mkVector3 0 0 0
     thr_setFromMatrixPosition (toJSVal m) jv
@@ -156,26 +158,26 @@ vecY = thr_vecY . toJSVal
 vecZ :: IsJSVector v => v -> Three Double
 vecZ = thr_vecZ . toJSVal
 
-(#+) :: V3 -> V3 -> V3
+(#+) :: V3R -> V3R -> V3R
 (V3 x1 y1 z1) #+ (V3 x2 y2 z2) = V3 (x1 + x2) (y1 + y2) (z1 + z2)
 
-(#-) :: V3 -> V3 -> V3
+(#-) :: V3R -> V3R -> V3R
 (V3 x1 y1 z1) #- (V3 x2 y2 z2) = V3 (x1 - x2) (y1 - y2) (z1 - z2)
 
 -- | create a new Three V3 object with TVector
-mkTVector3 :: V3 -> Three TVector3
+mkTVector3 :: V3R -> Three TVector3
 mkTVector3 (V3 x y z) = fromJSVal <$> thr_mkV3 x y z
 
-mkTVector2 :: V2 -> Three TVector2
+mkTVector2 :: V2R -> Three TVector2
 mkTVector2 (V2 x y) = fromJSVal <$> thr_mkVector2 x y
 
 -- | convert Vector to TVector
-toV3 :: TVector3 -> Three V3
+toV3 :: TVector3 -> Three V3R
 toV3 v = V3 <$> vecX v <*> vecY v <*> vecZ v
 
-toVector2 :: TVector2 -> Three V2
+toVector2 :: TVector2 -> Three V2R
 toVector2 v = V2 <$> vecX v <*> vecY v
 
 -- | extract x and y fields of a 3D vector to form a new 2D vector
-vector3To2 :: V3 -> V2
+vector3To2 :: V3R -> V2R
 vector3To2 (V3 x y _) = V2 x y
