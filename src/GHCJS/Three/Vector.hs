@@ -166,14 +166,14 @@ vecZ = thr_vecZ . toJSVal
 
 -- | create a new Three V3 object with TVector
 mkTVector3 :: V3R -> Three TVector3
-mkTVector3 (V3 x y z) = fromJSVal <$> thr_mkV3 x y z
+mkTVector3 (V3 x y z) = fromJSVal <$> thr_mkVector3 x y z
 
 mkTVector2 :: V2R -> Three TVector2
 mkTVector2 (V2 x y) = fromJSVal <$> thr_mkVector2 x y
 
 -- | convert Vector to TVector
-toV3 :: TVector3 -> Three V3R
-toV3 v = V3 <$> vecX v <*> vecY v <*> vecZ v
+toVector3 :: TVector3 -> Three V3R
+toVector3 v = V3 <$> vecX v <*> vecY v <*> vecZ v
 
 toVector2 :: TVector2 -> Three V2R
 toVector2 v = V2 <$> vecX v <*> vecY v
