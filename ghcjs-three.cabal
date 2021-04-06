@@ -60,6 +60,7 @@ library
   build-depends:       base >= 4.7 && < 5
                      , ghcjs-dom
                      , jsaddle
+                     , ghcjs-base
                      , transformers
                      , linear
                      , data-default
