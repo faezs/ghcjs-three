@@ -58,10 +58,10 @@ library
                      , GHCJS.Three.TextGeometry
                      , GHCJS.Three
   build-depends:       base >= 4.7 && < 5
-                     , ghcjs-base
+                     , ghcjs-base-stub
                      , ghcjs-dom
                      , transformers
-                     , AC-Vector
+                     , linear
                      , data-default
   default-language:    Haskell2010
   ghcjs-options:     -O2
