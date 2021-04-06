@@ -4,7 +4,6 @@ module GHCJS.Three.Texture (Texture(..), mkTexture, setNeedsUpdate,
     ImageLoader(..), mkImageLoader, setCrossOrigin, loadImage) where
 
 import Data.Functor
-import GHCJS.Types
 import GHCJS.Foreign.Callback
 import GHCJS.Concurrent
 

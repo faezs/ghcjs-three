@@ -18,8 +18,8 @@ import GHCJS.Three.CanCopy
 import Linear.V2
 import Linear.V3
 
-type V3R = V3 R
-type V2R = V2 R
+type V3R = V3 Double
+type V2R = V2 Double
 
 foreign import javascript unsafe "($2)['add']($1)"
     thr_add :: JSVal -> JSVal -> Three ()
