@@ -1,3 +1,4 @@
+{-# LANGUAGE PackageImports #-}
 module GHCJS.Three.Monad (
     Three,
     BaseObject(..),

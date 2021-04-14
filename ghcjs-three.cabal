@@ -59,11 +59,13 @@ library
                      , GHCJS.Three
   build-depends:       base >= 4.7 && < 5
                      , ghcjs-dom
-                     , jsaddle
-                     , ghcjs-base
+                     , jsaddle >= 0.9.7.1
                      , transformers
                      , linear
                      , data-default
+  if impl(ghcjs)
+     build-depends: ghcjs-base
+                        
   default-language:    Haskell2010
   ghcjs-options:     -O2
 
